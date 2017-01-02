@@ -1,0 +1,14 @@
+A 2
+B 3
+C 4
+D 6
+E 5
+-
+One 1 A B
+Two 1 A C
+Three 1 B D
+Four 2 C E
+Five 3 D E
+Six 4 A E
+Seven 2 C D
+Eight 2 B C

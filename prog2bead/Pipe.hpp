@@ -1,14 +1,19 @@
-//
-//  Pipe.hpp
-//  prog2bead
-//
-//  Created by Atus on 1/2/17.
-//  Copyright © 2017 ha. All rights reserved.
-//
+#pragma once
+#include <string>
+#include "Container.cpp"
 
-#ifndef Pipe_hpp
-#define Pipe_hpp
+using namespace std;
 
-#include <stdio.h>
-
-#endif /* Pipe_hpp */
+class Container;
+class Pipe {
+    string name;
+    int capacity;
+    bool on;
+    const Container * start;
+    const Container * end;
+    
+public:
+    Pipe(){};
+    Pipe(string _name, int _cap, const Container * _start, const Container *  _end):
+           name(_name), capacity(_cap), start(_start), end(_end){};
+};
