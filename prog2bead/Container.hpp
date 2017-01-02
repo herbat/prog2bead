@@ -14,13 +14,13 @@ typedef struct m{
 
 class Container {
     string name;
-    
     bool isClean;
+    bool isEmpty;
     Material material;
-    map<string, Pipe *> pipes;
     
 public:
     int capacity;
+    map<string, Pipe *> pipes;
     Container(){};
     Container(string _name, int _cap) : name(_name), capacity(_cap){};
     void addPipe(Pipe * pipe){

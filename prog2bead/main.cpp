@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <map>
 #include "Pipe.cpp"
 #include "Container.cpp"
@@ -48,3 +49,20 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
+
+vector<string> findpath(map<string, Container> containers, string start, string end,vector<string> path){
+    path.push_back(start);
+    if (start == end)
+        return path;
+    if (containers.find(start) == containers.end())
+        return * new vector<string>;
+    for (auto i : containers[start].pipes){
+        vector<string> newpath;
+        if(find(path.begin(), path.end(), i.first) == path.end())
+            newpath = findpath(containers, i.first, end, path);
+        if(newpath.size() != 0)
+            return newpath;
+    }
+    return * new vector<string>;
+}
+
