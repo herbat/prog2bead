@@ -1,17 +1,18 @@
 #pragma once
 #include <string>
-#include <vector>
-#include "Pipe.cpp"
+#include <map>
+#include "Pipe.hpp"
 
 using namespace std;
 
-class Pipe;
 class Container {
     string name;
     int capacity;
-    vector<Pipe *> pipes;
+    map<string, Pipe *> pipes;
     
 public:
     Container(){};
     Container(string _name, int _cap) : name(_name), capacity(_cap){};
+    void addPipe(Pipe * pipe);
 };
+
