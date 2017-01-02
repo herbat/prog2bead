@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) {
     while(getline(initFile, line)){//get pipes
         sscanf(line.c_str(), "%s %d %s %s", name, &cap, start, end);
         cout << name << " " << cap << start << end << endl;
-        pipes.emplace(name, Pipe(name, cap, &containers[start], &containers[end]));
+        pipes.emplace(name, Pipe(name, cap, start, end));
         containers[start].addPipe(&pipes[name]);
     }
     

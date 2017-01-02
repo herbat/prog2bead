@@ -13,6 +13,7 @@ class Container {
 public:
     Container(){};
     Container(string _name, int _cap) : name(_name), capacity(_cap){};
-    void addPipe(Pipe * pipe);
+    void addPipe(Pipe * pipe){
+        pipes.emplace(pipe->name, pipe);
+    }
 };
-
