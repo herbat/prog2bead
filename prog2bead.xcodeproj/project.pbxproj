@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3B080B031E1A71E500DFBA29 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B080B021E1A71E500DFBA29 /* main.cpp */; };
+		3B6A0BF31E1A7E81009331CD /* Pipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B6A0BF11E1A7E81009331CD /* Pipe.cpp */; };
+		3B6A0BF61E1A7F61009331CD /* Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B6A0BF41E1A7F61009331CD /* Container.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,11 @@
 /* Begin PBXFileReference section */
 		3B080AFF1E1A71E500DFBA29 /* prog2bead */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = prog2bead; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B080B021E1A71E500DFBA29 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3B6A0BF11E1A7E81009331CD /* Pipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pipe.cpp; sourceTree = "<group>"; };
+		3B6A0BF21E1A7E81009331CD /* Pipe.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Pipe.hpp; sourceTree = "<group>"; };
+		3B6A0BF41E1A7F61009331CD /* Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Container.cpp; sourceTree = "<group>"; };
+		3B6A0BF51E1A7F61009331CD /* Container.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Container.hpp; sourceTree = "<group>"; };
+		3B6A0BF71E1A8094009331CD /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,11 @@
 			isa = PBXGroup;
 			children = (
 				3B080B021E1A71E500DFBA29 /* main.cpp */,
+				3B6A0BF11E1A7E81009331CD /* Pipe.cpp */,
+				3B6A0BF21E1A7E81009331CD /* Pipe.hpp */,
+				3B6A0BF41E1A7F61009331CD /* Container.cpp */,
+				3B6A0BF51E1A7F61009331CD /* Container.hpp */,
+				3B6A0BF71E1A8094009331CD /* test.txt */,
 			);
 			path = prog2bead;
 			sourceTree = "<group>";
@@ -119,7 +131,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B6A0BF61E1A7F61009331CD /* Container.cpp in Sources */,
 				3B080B031E1A71E500DFBA29 /* main.cpp in Sources */,
+				3B6A0BF31E1A7E81009331CD /* Pipe.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +260,7 @@
 				3B080B081E1A71E500DFBA29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
