@@ -18,18 +18,20 @@ class Container {
     bool isClean;
     bool isEmpty;
     Material material;
-    
-public:
     int capacity;
     map<string, Pipe *> pipes;
+    
+public:
     Container(){};
     Container(string _name, int _cap) : name(_name), capacity(_cap){
         isEmpty = true;
         isClean = true;
     };
+    int getCap(){
+        return capacity;
+    }
     void addPipe(Pipe * pipe){
-        pipes.emplace(pipe->name, pipe);
-        cout << pipe->name << endl;
+        pipes.emplace(pipe->getName(), pipe);
     }
     void addMaterial(string name, int amount){
         this->material = Material{name, amount};
@@ -37,8 +39,18 @@ public:
     }
     
     void clean(){
+        if(isClean) return;
         for (auto i : pipes){
-            i.second->turnOn() = true;
+            i.second->switchTo(false);
+            cout << "off" << i.second->getName() << endl;
+        }
+        isClean = true;
+    }
+    
+    void flowTo(string dest){
+        for (auto i : pipes){
+            if(i.second->getStart() == dest) i.second->switchDirection();
+            if (i.second->getEnd() == dest) i.second->switchTo(true);
         }
     }
 };

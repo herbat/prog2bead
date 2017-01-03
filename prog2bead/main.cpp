@@ -11,8 +11,8 @@ using namespace std;
 
 const int MAX = 20;
 const string fileURL =  "/Users/atus/Documents/schoolprog/prog2bead/prog2bead/test.txt";//to be replaced with actual fileURL
-
-vector<string> findpath(map<string, Container> containers, string start, string end,vector<string> path);
+const string fileURL2 =  "/Users/atus/Documents/schoolprog/prog2bead/prog2bead/test2.txt";
+void step();
 
 int main(int argc, const char * argv[]) {
     map<string, Container> containers;
@@ -20,8 +20,9 @@ int main(int argc, const char * argv[]) {
     
     int cap, amt;
     string line;
-    char name [MAX], start [MAX], end[MAX], cont[MAX];
+    char name [MAX], start [MAX], end[MAX], cont[MAX], command[MAX];
     ifstream initFile(fileURL);
+    ifstream initFile2(fileURL2);
     
     //INITIAL STATE--------------------------------------------------
     
@@ -38,21 +39,50 @@ int main(int argc, const char * argv[]) {
         containers[start].addPipe(&pipes[name]);
     }
     
-    while(scanf("%s %s %d", name, cont, &amt)){
+    while(getline(initFile2, line)){
+        sscanf("%s %s %d", name, cont, &amt);
         cout << name << " " << amt;
         if(containers.find(cont) == containers.end()) break;
-        if(containers[cont].capacity < amt) continue;
+        if(containers[cont].getCap() < amt) continue;
         containers[cont].addMaterial(name, amt);
+    }
+    
+    //---------------------------------------------------------------
+    
+    //COMMAND SECTION------------------------------------------------
+    
+    while(scanf("%s %s %s", command, name, end)){
+        if(strcmp(command, "step")) {
+            step();
+        } else if (strcmp(command, "off") && pipes.find(name) == pipes.end()) {
+            pipes[name].switchTo(false);
+        } else if (strcmp(command, "clean") && containers.find(name) == containers.end()) {
+            containers[name].clean();
+        } else if (strcmp(command, "on") && pipes.find(name) == pipes.end() && containers.find(end) == containers.end()) {
+            if(pipes[name].getEnd() == end)
+                pipes[name].switchTo(true);//just open it
+            
+            else if(pipes[name].getStart() == end)
+                containers[pipes[name].getEnd()].flowTo(end);//reverse direction and open it
+            
+            else { cout << "Bad command" << endl; continue; }// bad command so skip
+        } else {
+            cout << "Bad command" << endl;
+            continue;
+        }
     }
     
     //---------------------------------------------------------------
     
     
     
-    vector<string> path = findpath(containers, "A", "B", * new vector<string>);
-    cout << path[0] << endl;
+    
+    //vector<string> path = findpath(containers, "A", "B", * new vector<string>);
+    //cout << path[0] << endl;
     return 0;
 }
+
+
 
 
 
