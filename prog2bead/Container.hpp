@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 #include <map>
 #include "Pipe.hpp"
@@ -22,11 +23,22 @@ public:
     int capacity;
     map<string, Pipe *> pipes;
     Container(){};
-    Container(string _name, int _cap) : name(_name), capacity(_cap){};
+    Container(string _name, int _cap) : name(_name), capacity(_cap){
+        isEmpty = true;
+        isClean = true;
+    };
     void addPipe(Pipe * pipe){
         pipes.emplace(pipe->name, pipe);
+        cout << pipe->name << endl;
     }
     void addMaterial(string name, int amount){
         this->material = Material{name, amount};
+        isEmpty = false;
+    }
+    
+    void clean(){
+        for (auto i : pipes){
+            i.second->turnOn() = true;
+        }
     }
 };

@@ -13,6 +13,9 @@ public:
     Pipe(){};
     Pipe(string _name, int _cap, const string _start, const string _end):
            name(_name), capacity(_cap), start(_start), end(_end){};
+    void turnOn(){
+        on = true;
+    }
 };
 
 
