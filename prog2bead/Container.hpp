@@ -35,6 +35,10 @@ public:
         return material.amount;
     }
     
+    double getLeftVolume(){
+        return isEmpty ? 0 : capacity - material.amount;
+    }
+    
     string getName(){
         return name;
     }
@@ -46,10 +50,15 @@ public:
     void addPipe(Pipe * pipe){
         pipes.emplace(pipe->getName(), pipe);
     }
+    
     void addMaterial(string name, double amount){
         this->material = Material{name, amount};
         isEmpty = false;
         isClean = false;
+    }
+    
+    void addAmount(double amount) {
+        material.amount += amount;
     }
     
     void clean(){
