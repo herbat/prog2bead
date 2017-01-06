@@ -74,9 +74,6 @@ int main(int argc, const char * argv[]) {
     
     //---------------------------------------------------------------
     
-    
-    
-    
     //vector<string> path = findpath(containers, "A", "B", * new vector<string>);
     //cout << path[0] << endl;
     return 0;
@@ -100,6 +97,133 @@ vector<vector<double>> createflowmatrix(map<string, Container> containers, map<s
     }
     return flowmatrix;
 }
+
+void step (map<string, Container> containers, map<string, Pipe> pipes,  vector<vector<double>> flowmatrix, double time)
+{
+    
+    vector<double> sum;
+    double t_temp = 1-time;
+    int keresett = 0;//ahol update kell a flowban
+    
+    for(auto c : containers) {//
+        int tsum = 0;
+        
+        for(auto p : c.second.getPipes())
+            tsum += p.second->getCap();
+        
+        sum.push_back(tsum);
+    }
+    
+    for(int i=0; graf.tartalyok.size(); i++)
+    {
+        if(sum[i] != 0)
+        {
+            if(sum[i]>0 && t_temp > (graf.tartalyok[i]->V - graf.tartalyok[i]->V_nedv)/sum[i]) {t_temp = (graf.tartalyok[i]->V - graf.tartalyok[i]->V_nedv)/sum[i]; keresett = i;}
+            if(sum[i]<0 && t_temp > (0 - graf.tartalyok[i]->V_nedv)/sum[i]) {t_temp = (0 - graf.tartalyok[i]->V_nedv)/sum[i]; keresett = i;}
+        }
+    }
+    if(t+t_temp == 1)
+    {
+        for(int i=0 ;i <graf.tartalyok.size();i++)
+        {
+            graf.tartalyok[i]->V_nedv += sum[i]*t_temp;
+        }
+        return;
+    }
+    
+    else
+    {
+        for(int i = 0; i < graf.tartalyok.size();i++)
+        {
+            graf.tartalyok[i]->V_nedv += sum[i]*t_temp;
+        }
+    }
+    double poz[graf.csovek.size()];
+    int alfa = 1;
+    double sumt = sum[keresett];
+    
+    if(sum[keresett]<0)
+    {
+        alfa = -1;
+    }
+    for(int i=0; i<graf.csovek.size();i++)
+    {
+        if(flowmatrix[keresett][i]*alfa > 0)
+        {
+            poz[i]=flowmatrix[keresett][i];
+            sumt = sumt-poz[i];
+        }
+    }
+    if(sumt == 0)
+    {
+        for (int i=0; i<graf.csovek.size();i++)
+            
+        {
+            if(flowmatrix[keresett][i] != 0)
+            {
+                if( graf.csovek[i].tar1 == graf.tartalyok[keresett]->nev_tart)
+                {
+                    
+                    for(int j=0; j<graf.tartalyok.size();j++)
+                    {
+                        if(graf.tartalyok[j]->nev_tart == graf.csovek[i].tar2)
+                        {
+                            flowmatrix[keresett][i]=0;
+                            flowmatrix[j][i]=0;
+                        }
+                    }
+                }
+                else
+                {
+                    for(int j=0; j<graf.tartalyok.size();j++)
+                    {
+                        if(graf.tartalyok[j]->nev_tart == graf.csovek[i].tar1)
+                        {
+                            flowmatrix[keresett][i]=0;
+                            flowmatrix[j][i]=0;
+                        }
+                    }
+                }
+            }
+        }
+        step(graf, flowmatrix, t+t_temp);
+    }
+    else
+    {  alfa = 1;
+        double sumt2;
+        vector<double>index;
+        
+        if (sumt < 0)    alfa=-1;
+        
+        for(int i= 0; i< graf.csovek.size(); i++)
+        {
+            if ( flowmatrix[keresett][i]*alfa > 0 )
+            {
+                sumt2=+flowmatrix[keresett][i];
+                index.push_back(i);
+                
+            }
+        }
+        
+        for(int i=0; i<index.size();i++)
+        {
+            if (graf.csovek[index[i]].tar1 == graf.tartalyok[keresett]->nev_tart)
+            {
+                for (int j=0; j<graf.tartalyok.size();j++)
+                {
+                    if(graf.csovek[index[i]].tar2 == graf.tartalyok[j]->nev_tart)
+                    {
+                        flowmatrix[keresett][index[i]]*=(sumt2-sum[keresett])/sumt2;
+                        flowmatrix[j][index[i]]*=(sumt2-sum[keresett])/sumt2;
+                    }
+                }
+            }
+        }
+        step(graf,flowmatrix,t+t_temp);
+    }
+    
+}
+
 
 
 //vector<string> findpath(map<string, Container> containers, string start, string end,vector<string> path){

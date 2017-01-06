@@ -9,7 +9,7 @@ using namespace std;
 typedef struct m{
     
     string name;
-    int amount;
+    double amount;
     
 } Material;
 
@@ -31,6 +31,10 @@ public:
         return capacity;
     }
     
+    double getAmt(){
+        return material.amount;
+    }
+    
     string getName(){
         return name;
     }
@@ -42,7 +46,7 @@ public:
     void addPipe(Pipe * pipe){
         pipes.emplace(pipe->getName(), pipe);
     }
-    void addMaterial(string name, int amount){
+    void addMaterial(string name, double amount){
         this->material = Material{name, amount};
         isEmpty = false;
         isClean = false;
@@ -56,8 +60,6 @@ public:
         }
         isClean = true;
     }
-    
-    
     
     void flowTo(string dest){
         for (auto i : pipes){
