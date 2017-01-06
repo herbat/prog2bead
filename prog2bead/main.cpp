@@ -14,14 +14,14 @@ const string fileURL =  "/Users/atus/Documents/schoolprog/prog2bead/prog2bead/te
 const string fileURL2 =  "/Users/atus/Documents/schoolprog/prog2bead/prog2bead/test2.txt";
 
 vector<vector<double>> createflowmatrix(map<string, Container> containers, map<string, Pipe> pipes);
-void step (map<string, Container> containers, map<string, Pipe> pipes,  vector<vector<double>> flowmatrix, double time);
+double step (map<string, Container> containers, map<string, Pipe> pipes,  vector<vector<double>> flowmatrix, double time);
 
 int main(int argc, const char * argv[]) {
     map<string, Container> containers;
     map<string, Pipe> pipes;
     
     int cap, amt;
-    double time;
+    double time = 0;
     string line;
     char name [MAX], start [MAX], end[MAX], cont[MAX], command[MAX];
     ifstream initFile(fileURL);
@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
     
     while(scanf("%s", command)){
         if(strcmp(command, "step")) {
-            step(containers, pipes, createflowmatrix(containers, pipes), time);
+            time = step(containers, pipes, createflowmatrix(containers, pipes), time);
         } else if (strcmp(command, "off") && pipes.find(name) == pipes.end()) {
             scanf("%s", name);
             pipes[name].switchTo(false);
@@ -107,7 +107,7 @@ vector<vector<double>> createflowmatrix(map<string, Container> containers, map<s
     return flowmatrix;
 }
 
-void step (map<string, Container> containers, map<string, Pipe> pipes,  vector<vector<double>> flowmatrix, double time) {
+double step (map<string, Container> containers, map<string, Pipe> pipes,  vector<vector<double>> flowmatrix, double time) {
     
     vector<double> sum;
     double t_temp = 1-time;
