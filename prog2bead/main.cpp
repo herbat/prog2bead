@@ -44,7 +44,6 @@ int main(int argc, const char * argv[]) {
     
     while(getline(initFile2, line)){
         sscanf(line.c_str(), "%s %s %d", name, cont, &amt);
-        cout << name << " " << amt << endl;
         if(containers.find(cont) == containers.end()) break;
         if(containers[cont].getCap() < amt) continue;
         containers[cont].addMaterial(name, amt);
@@ -54,15 +53,17 @@ int main(int argc, const char * argv[]) {
     
     //COMMAND SECTION------------------------------------------------
     
-    while(scanf("%s %s %s", command, name, end)){
+    while(scanf("%s", command)){
         if(strcmp(command, "step")) {
             step(containers, pipes, createflowmatrix(containers, pipes), time);
-            cout << "stepped" << endl;
         } else if (strcmp(command, "off") && pipes.find(name) == pipes.end()) {
+            scanf("%s", name);
             pipes[name].switchTo(false);
         } else if (strcmp(command, "clean") && containers.find(name) == containers.end()) {
+            scanf("%s", name);
             containers[name].clean();
         } else if (strcmp(command, "on") && pipes.find(name) == pipes.end() && containers.find(end) == containers.end()) {
+            scanf("%s %s", name, end);
             if(pipes[name].getEnd() == end)
                 pipes[name].switchTo(true);//just open it
             

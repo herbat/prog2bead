@@ -1,2 +1,2 @@
-Water A 3
+Water A 2
 Muck B 1
