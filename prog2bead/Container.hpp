@@ -30,12 +30,22 @@ public:
     int getCap(){
         return capacity;
     }
+    
+    string getName(){
+        return name;
+    }
+    
+    map<string, Pipe *> getPipes(){
+        return pipes;
+    }
+    
     void addPipe(Pipe * pipe){
         pipes.emplace(pipe->getName(), pipe);
     }
     void addMaterial(string name, int amount){
         this->material = Material{name, amount};
         isEmpty = false;
+        isClean = false;
     }
     
     void clean(){
@@ -46,6 +56,8 @@ public:
         }
         isClean = true;
     }
+    
+    
     
     void flowTo(string dest){
         for (auto i : pipes){

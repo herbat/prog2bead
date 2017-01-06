@@ -20,7 +20,7 @@ public:
         return start;
     }
     string getEnd(){
-        return start;
+        return end;
     }
     bool isOn(){
         return on;

@@ -27,7 +27,7 @@ int main(int argc, const char * argv[]) {
     //INITIAL STATE--------------------------------------------------
     
     while(getline(initFile, line)){//get containers
-        if(line == "-") break;
+        if(line == "- ") break;
         sscanf(line.c_str(), "%s %d", name, &cap);
         containers.emplace(name, Container(name, cap));
     }
@@ -40,7 +40,7 @@ int main(int argc, const char * argv[]) {
     }
     
     while(getline(initFile2, line)){
-        sscanf("%s %s %d", name, cont, &amt);
+        sscanf(line.c_str(), "%s %s %d", name, cont, &amt);
         cout << name << " " << amt;
         if(containers.find(cont) == containers.end()) break;
         if(containers[cont].getCap() < amt) continue;
@@ -82,17 +82,24 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+vector<vector<double>> createflowmatrix(map<string, Container> containers, map<string, Pipe> pipes) {
+    vector<vector<double>> flowmatrix;
+    vector<double> flows;
+    for(auto c : containers) {
+        map<string, Pipe * > cpipes = c.second.getPipes();
+        for (auto p : pipes) {
+            if(!(cpipes.find(p.second.getName()) == cpipes.end())){//if the pipe is connected to the container
+                if (p.second.isOn()) {//and it is on
+                    if (p.second.getStart() == c.second.getName())
+                         flows.push_back(-p.second.getCap());//and cont is source, then negative
+                    else flows.push_back(p.second.getCap());//if not source, then end, which means positive
+                } else flows.push_back(0);
+            } else flows.push_back(0);
+        }
+        flowmatrix.push_back(flows);
+    }
+    return flowmatrix;
+}
 
 
 //vector<string> findpath(map<string, Container> containers, string start, string end,vector<string> path){
