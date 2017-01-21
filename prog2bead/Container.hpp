@@ -15,8 +15,8 @@ typedef struct m{
 
 class Container {
     string name;
-    bool isClean;
-    bool isEmpty;
+    bool clean;
+    bool empty;
     Material material;
     int capacity;
     map<string, Pipe *> pipes;
@@ -24,19 +24,27 @@ class Container {
 public:
     Container(){};
     Container(string _name, int _cap) : name(_name), capacity(_cap){
-        isEmpty = true;
-        isClean = true;
+        empty = true;
+        clean = true;
     };
     int getCap(){
         return capacity;
+    }
+    
+    bool isEmpty(){
+        return empty;
     }
     
     double getAmt(){
         return material.amount;
     }
     
+    string getMaterial(){
+        return material.name;
+    }
+    
     double getLeftVolume(){
-        return isEmpty ? 0 : capacity - material.amount;
+        return empty ? capacity : capacity - material.amount;
     }
     
     string getName(){
@@ -52,22 +60,22 @@ public:
     }
     
     void addMaterial(string name, double amount){
-        this->material = Material{name, amount};
-        isEmpty = false;
-        isClean = false;
+        material = Material{name, amount};
+        empty = false;
+        clean = false;
     }
     
     void addAmount(double amount) {
         material.amount += amount;
     }
     
-    void clean(){
-        if(isClean) return;
+    void cleanIt(){
+        if(clean) return;
         for (auto i : pipes){
             i.second->switchTo(false);
             cout << "off" << i.second->getName() << endl;
         }
-        isClean = true;
+        clean = true;
     }
     
     void flowTo(string dest){
