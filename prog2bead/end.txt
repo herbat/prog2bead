@@ -1,2 +1,3 @@
-Water C 4
+Water A 1
+Wine C 1
 -
